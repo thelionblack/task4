@@ -9,6 +9,7 @@ function Registration() {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [errorText, setError] = useState('');
+    const [successText, setSuccess] = useState('');
     const {table, setTable} = useContext(UserContext)
     const navigate = useNavigate();
 
@@ -38,6 +39,7 @@ function Registration() {
         }
         localStorage.setItem('token', data.token)
         setTable(data.table)
+        setSuccess('success')
     }
 
   return (
@@ -63,7 +65,8 @@ function Registration() {
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
             />
         </Form.Group>
-        <p className='error h6 text-danger mt-2'>{errorText}</p>
+        <p className='error h6 text-success m-lg-3 mt-2'>{successText}</p>
+        <p className='error h6 text-danger m-lg-3 mt-2'>{errorText}</p>
         <Button variant="primary" type="submit">
             Submit
         </Button>

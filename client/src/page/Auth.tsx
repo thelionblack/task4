@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Table} from "react-bootstrap";
+import {OverlayTrigger, Table} from "react-bootstrap";
 import {isAuthContext, UserContext} from "../components/Context";
 import jwtDecode from "jwt-decode";
 import {useNavigate} from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 const Auth = () => {
     const {table, setTable} = useContext(UserContext)
@@ -135,72 +136,76 @@ const Auth = () => {
 
 
     return (
-        <Table striped bordered hover>
-            <thead>
-            <tr>
-                <th>
-                    <input
-                        className="form-check-input-lg"
-                        type="checkbox"
-                        checked={check}
-                        id="checkboxNoLabel"
-                        aria-label="..."
-                        onChange={onToggleCheckALl}
-                    />
-                </th>
-                <th>id</th>
-                <th>name</th>
-                <th>email</th>
-                <th>createdAt</th>
-                <th>updatedAt</th>
-                <th>status</th>
-            </tr>
-            </thead>
-            <tbody>
-            {table.map((e,i) => {
-                return (
+        <>
+            <Table striped bordered hover>
+                <thead>
+                <tr>
+                    <th>
+                        <input
+                            className="form-check-input-lg"
+                            type="checkbox"
+                            checked={check}
+                            id="checkboxNoLabel"
+                            aria-label="..."
+                            onChange={onToggleCheckALl}
+                        />
+                    </th>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>createdAt</th>
+                    <th>updatedAt</th>
+                    <th>status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {table.map((e,i) => {
+                    return (
 
-                    <tr key={i}>
-                        <td>
-                            <input className="form-check-input-lg"
-                                   type="checkbox"
-                                   checked={Boolean(e.isChecked)}
-                                   id="checkboxNoLabel"
-                                   aria-label="..."
-                                   onChange={(event) => onToggleCheck(event, e.id)}
-                            />
-                        </td>
-                        <td>{e.id}</td>
-                        <td>{e.name}</td>
-                        <td>{e.email}</td>
-                        <td>{e.createdAt}</td>
-                        <td>{e.updatedAt}</td>
-                        <td>{e.status}</td>
-                    </tr>
-                )
-            })}
-            <tr>
-                <td
-                    style={{cursor: "pointer"}}
-                    className='bg-danger'
-                    colSpan={2}
+                        <tr key={i}>
+                            <td>
+                                <input className="form-check-input-lg"
+                                       type="checkbox"
+                                       checked={Boolean(e.isChecked)}
+                                       id="checkboxNoLabel"
+                                       aria-label="..."
+                                       onChange={(event) => onToggleCheck(event, e.id)}
+                                />
+                            </td>
+                            <td>{e.id}</td>
+                            <td>{e.name}</td>
+                            <td>{e.email}</td>
+                            <td>{e.createdAt}</td>
+                            <td>{e.updatedAt}</td>
+                            <td>{e.status}</td>
+                        </tr>
+                    )
+                })}
+                </tbody>
+            </Table>
+            <div className='mb-4' style={{textAlign: "center"}}>
+                <Button
+                    className='me-4'
                     onClick={onBlock}
-                >Block</td>
-                <td
-                    style={{cursor: "pointer"}}
-                    className='bg-danger'
-                    colSpan={2}
+                    variant='outline-danger'
+                >
+                    Block
+                </Button>
+                <Button
+                    className='me-4'
                     onClick={onUnBlock}
-                >UnBlock</td>
-                <td
-                    style={{cursor: "pointer"}}
-                    className='bg-danger'
-                    colSpan={2}
+                    variant='outline-danger'
+                >
+                    UnBlock
+                </Button>
+                <Button
                     onClick={deletePerson}
-                >Delete</td>
-            </tr>
-            </tbody>
-        </Table>
+                    variant='outline-danger'
+                >
+                    Delete
+                </Button>
+            </div>
+        </>
     );
 };
 
